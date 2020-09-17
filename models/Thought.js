@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const ThoughtSchema = new Schema({
-    ThoughtText: {
+    thoughtText: {
       type: String
     },
     createdAt: {
