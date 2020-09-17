@@ -8,7 +8,7 @@ const ThoughtSchema = new Schema({
         type: Date,
         default: Date.now
       },
-    createdBy: {
+    username: {
       type: String
     },
     reactions: []
