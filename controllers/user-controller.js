@@ -40,7 +40,11 @@ const userController = {
 
     // update user by id
     updateUser({ params, body }, res) {
-        User.findOneAndUpdate({ _id: params.userId }, body, { new: true, runValidators: true })
+        User.findOneAndUpdate(
+            { _id: params.userId }, 
+            body, 
+            { new: true, runValidators: true }
+            )
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'No user found with this id!' });
@@ -61,7 +65,7 @@ const userController = {
             })
             .then(dbUserData => {
                 if (!dbUserData) {
-                    res.status(404).json({ message: 'User successfully deleted!' });
+                    res.json({ message: 'User successfully deleted!' });
                     return;
                 }
                 res.json({ message: 'User successfully deleted!' });
@@ -92,7 +96,7 @@ const userController = {
         )
         .then(dbUserData => {
             if (!dbUserData) {
-                res.status(404).json({ message: 'Friend successfully deleted!' });
+                res.json({ message: 'Friend successfully deleted!' });
                 return;
             }
             res.json({ message: 'Friend successfully deleted!' });
