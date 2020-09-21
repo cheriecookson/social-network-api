@@ -69,27 +69,11 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    addFriend({ params, body }, res) {
+    addFriend({ params }, res) {
         User.findOneAndUpdate(
             { _id: params.userId },
-            { $push: { friends: body } },
-            { new: true, runValidators: true }
+            { $push: { friends: params.friendId } },
+            { new: true }
         )
             .then(dbUserData => {
                 if (!dbUserData) {
@@ -103,11 +87,17 @@ const userController = {
     removeFriend({ params }, res) {
         User.findOneAndUpdate(
             { _id: params.userId },
-            { $pull: { friends: { friendId: params.friendId } } },
+            { $pull: { friends: params.friendId } },
             { new: true }
         )
-            .then(dbUserData => res.json(dbUserData))
-            .catch(err => res.json(err));
+        .then(dbUserData => {
+            if (!dbUserData) {
+                res.status(404).json({ message: 'Friend successfully deleted!' });
+                return;
+            }
+            res.json({ message: 'Friend successfully deleted!' });
+        })
+        .catch(err => res.json(err));
     }
 
 };
