@@ -51,25 +51,13 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    // delete user
-    // deleteUser({ params }, res) {
-    //     User.findOneAndDelete({ _id: params.userId })
-    //         .then(dbUserData => res.json(dbUserData))
-    //         .catch(err => res.json(err));
-    // },
-
-
     deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.userId })
             .then(dbUserData => {
                 if (!dbUserData) {
                     return res.status(404).json({ message: 'No user with this id!' });
                 }
-                // return User.findOneAndUpdate(
-                //     { thoughts: params.thoughtId },
-                //     { $pull: { thoughts: params.thoughtId } },
-                //     { new: true }
-                // );
+
             })
             .then(dbUserData => {
                 if (!dbUserData) {
